@@ -51,10 +51,11 @@ class LogEntryAdminMixin(object):
         changes = json.loads(obj.changes)
         s = ''
         len_changes = 0
+        fields = ''
         if changes is not None:
             len_changes = len(changes)
             s = '' if len_changes == 1 else 's'
-        fields = ', '.join(changes.keys())
+            fields = ', '.join(changes.keys())
         if len(fields) > MAX:
             i = fields.rfind(' ', 0, MAX)
             fields = fields[:i] + ' ..'
