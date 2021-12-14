@@ -49,12 +49,16 @@ class LogEntryAdminMixin(object):
         if obj.action == LogEntry.Action.DELETE:
             return ''  # delete
         changes = json.loads(obj.changes)
-        s = '' if len(changes) == 1 else 's'
+        s = ''
+        len_changes = 0
+        if changes is not None:
+            len_changes = len(changes)
+            s = '' if len_changes == 1 else 's'
         fields = ', '.join(changes.keys())
         if len(fields) > MAX:
             i = fields.rfind(' ', 0, MAX)
             fields = fields[:i] + ' ..'
-        return '%d change%s: %s' % (len(changes), s, fields)
+        return '%d change%s: %s' % (len_changes, s, fields)
 
     msg_short.short_description = 'Changes'
 
